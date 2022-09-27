@@ -1,4 +1,9 @@
-/env-3.10.4
+/ecommerce/env-3.10.6
 /ecommerce/adresse/__pycache__
 /ecommerce/adresse/migrations/__pycache__
+/ecommerce/adresse/migrations
+/ecommerce/members/__pycache__
+/ecommerce/members/migrations/__pycache__
+/ecommerce/members/migrations
 /ecommerce/ecommerce/__pycache__
+

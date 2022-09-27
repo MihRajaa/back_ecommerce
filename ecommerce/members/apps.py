@@ -1,7 +1,6 @@
 from django.apps import AppConfig
-from import_export import signals
 
 
-class AdresseConfig(AppConfig):
+class MembersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'adresse'
+    name = 'members'
