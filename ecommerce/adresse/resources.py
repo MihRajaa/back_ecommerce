@@ -8,15 +8,20 @@ from .models import *
 # resource de Gouvernat
 class GouvernatResource(resources.ModelResource):
 
+    index_code_postal = fields.Field(
+        column_name='index_code_postal',
+        attribute='index_code_postal',
+        widget=widgets.SimpleArrayWidget(separator=';')
+    )
+
     class Meta:
-        index_code_postal = fields.Field(
-            column_name='index_code_postal',
-            attribute='index_code_postal',
-            widget=widgets.SimpleArrayWidget(separator=';')
-        )
         model = Gouvernat
-        import_id_fields = ("gouvernat",)
-        fields = ('gouvernat', 'code_iso', 'index_code_postal', 'coordonnees')
+
+    import_id_fields = ("gouvernat",)
+    fields = ('gouvernat', 'code_iso', 'index_code_postal', 'coordonnees')
+    clean_model_instances = True
+    export_order = ['gouvernat', 'code_iso',
+                    'index_code_postal', 'coordonnees']
 
 
 # resource de Ville
