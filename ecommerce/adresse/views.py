@@ -27,3 +27,13 @@ class VilleViewSet(viewsets.ModelViewSet):
 class CodePosteViewSet(viewsets.ModelViewSet):
     queryset = CodePoste.objects.all()
     serializer_class = CodePosteSerializer
+
+
+class AdresseViewSet(viewsets.ModelViewSet):
+    queryset = Adresse.objects.all()
+    serializer_class = AdresseSerializer
+
+
+class LocaliteViewSet(viewsets.ModelViewSet):
+    queryset = Localite.objects.all()
+    serializer_class = LocaliteSerializer

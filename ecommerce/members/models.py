@@ -4,6 +4,8 @@ from django.contrib.auth.models import (
 )
 from django.utils.translation import gettext as _
 
+from adresse.models import Adresse
+
 
 class MyUserManager(BaseUserManager):
     def create_user(self, username, email, password=None):
@@ -75,13 +77,19 @@ class MyUser(AbstractBaseUser):
 
 
 class UserAdress(models.Model):
-    ACTIVE_TYPE = (
-        ("Admin", _("Administrateur")),
-        ("User", _("Utilisateur"))
+    ADRESSE_TYPE = (
+        ("facturation", _("Facturation")),
+        ("import", _("Import")),
+        ("export", _("Export")),
+        ("livraison", _("Livraison")),
+        ("siege social", _("Siege Social"))
     )
     user = models.ForeignKey(MyUser, verbose_name=_("utilisateur"),
                              on_delete=models.CASCADE)
-    user_type = models.CharField(max_length=50, choices=ACTIVE_TYPE)
+    adresse = models.ForeignKey(Adresse, on_delete=models.DO_NOTHING)
+
+    adresse_type = models.CharField(
+        max_length=50, choices=ADRESSE_TYPE)
     active = models.BooleanField(default=True)
 
     def __str__(self):

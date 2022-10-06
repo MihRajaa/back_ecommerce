@@ -42,3 +42,14 @@ class CodePosteResource(resources.ModelResource):
 
     class Meta:
         model = CodePoste
+
+
+# resource de localite
+class LocaliteResource(resources.ModelResource):
+    ville = fields.Field(
+        column_name='ville',
+        attribute='ville',
+        widget=ForeignKeyWidget(Ville, 'ville'))
+
+    class Meta:
+        model = Localite

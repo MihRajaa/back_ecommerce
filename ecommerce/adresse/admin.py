@@ -1,4 +1,4 @@
-from import_export.admin import ImportExportModelAdmin, ImportMixin
+from import_export.admin import ImportExportModelAdmin
 
 from django.contrib import admin
 
@@ -20,11 +20,29 @@ class GouvernatAdmin(ImportExportModelAdmin):
 
 @admin.register(Ville)
 class VilleAdmin(ImportExportModelAdmin):
-    list_display = ('ville',)
+    list_display = ['ville', 'code_poste']
     resource_class = VilleResource
+
+    class Meta:
+        fields = ['ville', 'code_poste']
 
 
 @admin.register(CodePoste)
 class CodePosteAdmin(ImportExportModelAdmin):
-    list_display = ['code_poste']
+    list_display = ['code_poste', ]
     resource_class = CodePosteResource
+
+
+@admin.register(Localite)
+class LocaliteAdmin(ImportExportModelAdmin):
+    list_display = ['locale', 'code_postal', 'ville']
+    resource_class = LocaliteResource
+
+
+@admin.register(Adresse)
+class AdresseAdmin(admin.ModelAdmin):
+    list_display = ["appartement",
+                    "etage",
+                    "porte",
+                    "commentaire",
+                    "rue"]

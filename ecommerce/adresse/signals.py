@@ -1,16 +1,18 @@
+from django.db.models.signals import pre_save
 from django.dispatch import receiver
-from import_export.signals import post_import, post_export
 
 from .models import *
 
 
-@receiver(post_import, sender=Gouvernat, dispatch_uid='gouvernat')
-def _post_import(model, **kwargs):
-    # model is the actual model instance which after import
-    pass
+@receiver(pre_save, sender=Ville)
+def recherche_gouvernat(sender, instance, **kwargs):
+    index = []
+    for c in instance.code_poste:
+        index.append(int(str(c)[:2]))
 
+    gouv = Gouvernat.objects.get(index_code_postal=index[0])
 
-@receiver(post_export, dispatch_uid='gouvernat')
-def _post_export(model, **kwargs):
-    # model is the actual model instance which after export
-    pass
+    if not gouv:
+        print("verifier votre code poste")
+    else:
+        print("valide code poste")

@@ -9,6 +9,8 @@ router = routers.DefaultRouter()
 router.register(r'gouvernat', views.GouvernatViewSet)
 router.register(r'ville', views.VilleViewSet)
 router.register(r'code postal', views.CodePosteViewSet)
+router.register(r'localite', views.LocaliteViewSet)
+router.register(r'adresse', views.AdresseViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

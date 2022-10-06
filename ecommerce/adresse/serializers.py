@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from .models import *
-# from django.contrib.auth.models import User
 
 
 # Serializations des tables
@@ -11,16 +10,15 @@ class GouvernatSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Gouvernat
-        fields = ['gouvernat', 'code_iso', 'coordonnees']
+        fields = ['gouvernat', 'code_iso', 'index_code_postal', 'coordonnees']
 
 
 # Serializations de Ville
 class VilleSerializer(serializers.HyperlinkedModelSerializer):
-    gouvernat = GouvernatSerializer(many=False)
 
     class Meta:
         model = Ville
-        fields = ['name_ville', 'gouvernat']
+        fields = ['ville', 'code_poste']
 
 
 # Serializations de code de poste
@@ -31,9 +29,17 @@ class CodePosteSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['code_poste']
 
 
-# Serializations d'utilisateur
-# class UserSerializer(serializers.HyperlinkedModelSerializer):
+# Serializations d'Localite
+class LocaliteSerializer(serializers.HyperlinkedModelSerializer):
 
-#     class Meta:
-#         model = User
-#         fields = ['id', 'username', 'is_active']
+    class Meta:
+        model = Localite
+        fields = "__all__"
+
+
+# Serializations d'adresse
+class AdresseSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Adresse
+        fields = "__all__"
