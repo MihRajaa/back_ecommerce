@@ -11,11 +11,18 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+if os.name == 'nt':
+    VIRTUAL_ENV_BASE = os.environ['VIRTUAL_ENV']
+    os.environ['PATH'] = os.path.join(
+        VIRTUAL_ENV_BASE, r'.\Lib\site-packages\osgeo') + ';' + os.environ['PATH']
+    os.environ['PROJ_LIB'] = os.path.join(
+        VIRTUAL_ENV_BASE, r'.\Lib\site-packages\osgeo\data\proj') + ';' + os.environ['PATH']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -39,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
-    # 'django.contrib.gis',
+    'django.contrib.gis',
 
     'adresse',
     'members',
@@ -48,6 +55,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'guardian',
     'import_export',
+    'location_field.apps.DefaultConfig',
 ]
 
 MIDDLEWARE = [
@@ -81,6 +89,8 @@ TEMPLATES = [
     },
 ]
 
+# GDAL_LIBRARY_PATH = ""
+
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 AUTH_USER_MODEL = 'members.MyUser'
@@ -104,7 +114,7 @@ AUTHENTICATION_BACKENDS = (
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'ecommerce',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
@@ -154,3 +164,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOCATION_FIELD = {
+    'provider.google.api': '//maps.google.com/maps/api/js?sensor=false',
+    'provider.google.api_key': '',
+    'provider.google.api_libraries': '',
+    'provider.google.map.type': 'ROADMAP',
+}

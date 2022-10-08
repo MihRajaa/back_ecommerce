@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext as _
 from django.contrib.postgres.fields import ArrayField
-# from django.contrib.gis.db import models
+from django.contrib.gis.db import models
+from location_field.models.spatial import LocationField
+# from osgeo import gdal
 
 # Create your models here.
 
@@ -11,7 +13,8 @@ class Gouvernat(models.Model):
     gouvernat = models.CharField(max_length=30)
     code_iso = models.CharField(max_length=10)
     index_code_postal = ArrayField(models.PositiveIntegerField())
-    coordonnees = models.CharField(max_length=50)
+    coordonnees = LocationField(
+        based_fields=['gouvernat'], zoom=7, null=True)
 
     def __str__(self):
         return f'{self.gouvernat}'
@@ -48,11 +51,11 @@ class Localite(models.Model):
 
 # table adresse
 class Adresse(models.Model):
+    rue = models.CharField(_(""), max_length=50)
     appartement = models.CharField(_(""), max_length=50)
     etage = models.CharField(_(""), max_length=50)
     porte = models.CharField(_(""), max_length=50)
     commentaire = models.CharField(_(""), max_length=200)
-    rue = models.CharField(_(""), max_length=50)
 
     def __str__(self):
         return f"{self.rue}"
