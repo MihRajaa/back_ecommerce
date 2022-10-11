@@ -55,7 +55,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'guardian',
     'import_export',
-    'location_field.apps.DefaultConfig',
+    'django_extensions',
+    'drf_yasg',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 MIDDLEWARE = [
@@ -99,7 +102,15 @@ AUTH_USER_MODEL = 'members.MyUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    )
 }
 
 # guardian authentication config
@@ -170,4 +181,10 @@ LOCATION_FIELD = {
     'provider.google.api_key': '',
     'provider.google.api_libraries': '',
     'provider.google.map.type': 'ROADMAP',
+}
+
+
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': '/admin/login/',
+    'LOGOUT_URL': '/admin/logout/',
 }

@@ -6,4 +6,4 @@ class AdresseConfig(AppConfig):
     name = 'adresse'
 
     def ready(self):
-        import adresse.signals
+        from . import signals
