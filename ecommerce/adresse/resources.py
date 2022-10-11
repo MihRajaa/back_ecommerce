@@ -29,6 +29,10 @@ class GouvernatResource(resources.ModelResource):
         model = Gouvernat
 
     def before_import_row(self, row, row_number=None, **kwargs):
+        '''
+        recu string valeur(kartography type maps adresse) puis extract les valeur point et faire le calcul pour get donnees au point type field
+        '''
+
         logging.warning(row['coordonnees'])
         cord = []
         coordonnees = Point(0, 0)

@@ -1,10 +1,7 @@
-from enum import unique
 from django.db import models
 from django.utils.translation import gettext as _
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.gis.db import models as geo
-from location_field.models.spatial import LocationField
-# from osgeo import gdal
 
 # Create your models here.
 
@@ -16,19 +13,12 @@ class Gouvernat(models.Model):
     index_code_postal = ArrayField(models.PositiveIntegerField())
     coordonnees = geo.PointField()
 
-    # @coordonnees.setter
-    # def coordonnees(self, value):
-    #     print(value)
-    #     self.coordonnees = value
-
     def __str__(self):
         return f'{self.gouvernat}'
 
-    # def save(self, *args, **kwargs):
-    #     print(self.coordonnees)
-
-
 # table liste de code des postes
+
+
 class CodePoste(models.Model):
     code_poste = models.CharField(max_length=4, unique=True)
 
