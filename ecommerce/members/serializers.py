@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.auth.hashers import make_password
 
 from .models import *
 
@@ -7,14 +8,14 @@ from .models import *
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyUser
-        fields = ('id', 'username', 'password', 'firstname', 'email',
+        fields = ('username', 'password', 'firstname', 'email',
                   'lastname', 'date_of_birth', 'phone', 'password', 'is_active')
         extra_kwargs = {
             'password': {'write_only': True},
         }
 
         def create(self, validated_data):
-            user = MyUser.objects.create_user(validated_data['username'],     password=validated_data['password'],
+            user = MyUser.objects.create_user(username=validated_data['username'],     password=make_password(validated_data['password']),
                                               first_name=validated_data['first_name'],  last_name=validated_data['last_name'])
             return user
 
