@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from django.contrib.auth.hashers import make_password
 
 from .models import *
 
@@ -15,7 +14,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         }
 
         def create(self, validated_data):
-            user = MyUser.objects.create_user(username=validated_data['username'],     password=make_password(validated_data['password']),
+            user = MyUser.objects.create_user(username=validated_data['username'],     password=validated_data['password'],
                                               first_name=validated_data['first_name'],  last_name=validated_data['last_name'])
             return user
 
