@@ -46,16 +46,18 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
-    username = models.CharField(max_length=50, unique=True)
+    username = models.CharField(verbose_name=_(
+        'User name'), max_length=50, unique=True)
     email = models.EmailField(
         verbose_name=_('email address'), max_length=150)
-    firstname = models.CharField(max_length=50)
-    lastname = models.CharField(max_length=50)
-    date_of_birth = models.DateField(null=True)
-    phone = models.CharField(max_length=20)
+    firstname = models.CharField(verbose_name=_('first name'), max_length=50)
+    lastname = models.CharField(verbose_name=_('last name'), max_length=50)
+    date_of_birth = models.DateField(
+        verbose_name=_('date of birth'), null=True)
+    phone = models.CharField(verbose_name=_('Phone Number'), max_length=20)
 
-    is_active = models.BooleanField(default=True)
-    is_admin = models.BooleanField(default=False)
+    is_active = models.BooleanField(verbose_name=_('Active'), default=True)
+    is_admin = models.BooleanField(verbose_name=_('admin'), default=False)
 
     objects = MyUserManager()
 
@@ -86,11 +88,12 @@ class UserAdress(models.Model):
     )
     user = models.ForeignKey(MyUser, verbose_name=_("utilisateur"),
                              on_delete=models.CASCADE)
-    adresse = models.ForeignKey(Adresse, on_delete=models.DO_NOTHING)
+    adresse = models.ForeignKey(Adresse, verbose_name=_(
+        'adresse'), on_delete=models.DO_NOTHING)
 
-    adresse_type = models.CharField(
-        max_length=50, choices=ADRESSE_TYPE)
-    active = models.BooleanField(default=True)
+    adresse_type = models.CharField(verbose_name=_('type adresse'),
+                                    max_length=50, choices=ADRESSE_TYPE)
+    active = models.BooleanField(verbose_name=_('active'), default=True)
 
     def __str__(self):
         return f'{self.user}'
