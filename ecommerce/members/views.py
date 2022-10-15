@@ -1,15 +1,17 @@
-from rest_framework import viewsets, permissions
-from drf_yasg.utils import swagger_auto_schema
-from rest_framework import serializers, status
+from .serializers import *
+from .models import *
 from rest_framework_simplejwt.views import (
     TokenBlacklistView,
     TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
 )
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework import viewsets, permissions, generics
+from rest_framework import serializers, status
+from rest_framework.response import Response
 
-from .models import *
-from .serializers import *
+
 # Create your views here.
 
 
@@ -89,18 +91,38 @@ class DecoratedTokenBlacklistView(TokenBlacklistView):
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
 
+
 #  MyUser view
-
-
 class MyUserViewSet(viewsets.ModelViewSet):
     queryset = MyUser.objects.all()
     serializer_class = MyUserSerialiser
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
+
 
 #  UserAdresse view
-
-
 class UserAdresseViewSet(viewsets.ModelViewSet):
     queryset = UserAdress.objects.all()
     serializer_class = UserAdresseSerialiser
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
+
+    def get_client_ip(request):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        return ip
+
+
+# Register API
+class MemberRegister(generics.GenericAPIView):
+    serializer_class = RegisterSerializer
+
+    def post(self, request, *args,  **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        return Response({
+            "user": MyUserSerialiser(user,    context=self.get_serializer_context()).data,
+            "message": "User Created Successfully.  Now perform Login to get your token",
+        })

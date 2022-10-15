@@ -12,6 +12,7 @@ from rest_framework_simplejwt.views import (
 
 from adresse import views as adresse_views
 from members import views as member_views
+from produit import views as produit_views
 
 router = routers.DefaultRouter()
 router.register(r'gouvernat', adresse_views.GouvernatViewSet)
@@ -22,6 +23,8 @@ router.register(r'adresse', adresse_views.AdresseViewSet)
 
 router.register(r'myuser', member_views.MyUserViewSet)
 router.register(r'useradresse', member_views.UserAdresseViewSet)
+
+router.register(r'produit', produit_views.ProduitViewSet)
 
 
 schema_view = get_schema_view(
@@ -40,6 +43,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('', include('members.urls')),
     path('api-auth/', include('rest_framework.urls')),
 
     path('api/token/', TokenObtainPairView.as_view(),

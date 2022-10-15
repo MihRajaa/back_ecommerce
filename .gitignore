@@ -2,9 +2,15 @@
 /ecommerce/adresse/__pycache__
 /ecommerce/adresse/migrations/__pycache__
 /ecommerce/adresse/migrations
+
 /ecommerce/members/__pycache__
 /ecommerce/members/migrations/__pycache__
 /ecommerce/members/migrations
+
 /ecommerce/ecommerce/__pycache__
+
+/ecommerce/produit/__pycache__
+/ecommerce/produit/migrations/__pycache__
+/ecommerce/produit/migrations
 
 /.vscode
