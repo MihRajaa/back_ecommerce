@@ -32,24 +32,3 @@ def recherche_ville(sender, instance, **kwargs):
     else:
         logging.warning(ville)
         instance.ville = ville
-
-
-# @receiver(pre_save, sender=Gouvernat)
-# def calcul_coordonnees(sender, instance, **kwargs):
-#     # methode 1
-#     cord = []
-#     logging.warning(instance.coordonnees)
-#     for s in re.findall(r'\b\d+\b', instance.coordonnees):
-#         cord.append(int(s))
-
-#     coordonnees = Point((cord[0]+cord[1]/60+cord[2]/3600),
-#                         (cord[3]+cord[4]/60+cord[5]/3600))
-
-#     instance.coordonnees = coordonnees
-
-    # Methode 2
-    # from geopy.geocoders import Nominatim
-    # geolocator = Nominatim(user_agent="geoapiExercises")
-    # address = geolocator.geocode(instance.coordonnees)
-    # print(address.latitude, address.longitude)
-    # instance.coordonnees = address

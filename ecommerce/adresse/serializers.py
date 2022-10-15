@@ -10,7 +10,7 @@ class GouvernatSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Gouvernat
-        fields = ['gouvernat', 'code_iso', 'index_code_postal', 'coordonnees']
+        fields = '__all__'
 
 
 # Serializations de Ville
@@ -18,7 +18,7 @@ class VilleSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Ville
-        fields = ['ville', 'code_poste']
+        fields = '__all__'
 
 
 # Serializations de code de poste
@@ -26,7 +26,7 @@ class CodePosteSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = CodePoste
-        fields = ['code_poste']
+        fields = '__all__'
 
 
 # Serializations d'Localite

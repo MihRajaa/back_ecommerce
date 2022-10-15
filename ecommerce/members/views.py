@@ -114,7 +114,7 @@ class UserAdresseViewSet(viewsets.ModelViewSet):
         return ip
 
 
-# Register API
+# Register Member
 class MemberRegister(generics.GenericAPIView):
     serializer_class = RegisterSerializer
 
