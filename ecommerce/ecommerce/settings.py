@@ -14,6 +14,8 @@ from datetime import timedelta
 from pathlib import Path
 import os
 
+from django.urls import reverse_lazy
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,8 +80,10 @@ MIDDLEWARE = [
     'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
 
+# durée de session
 SESSION_EXPIRE_SECONDS = 900
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+LOGOUT_REDIRECT_URL = reverse_lazy('login_view')
 
 ROOT_URLCONF = 'ecommerce.urls'
 

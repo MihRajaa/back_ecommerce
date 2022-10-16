@@ -77,6 +77,9 @@ class MyUser(AbstractBaseUser):
     def is_staff(self):
         return f'{self.is_admin}'
 
+    class Meta:
+        ordering = ["id"]
+
 
 class UserAdress(models.Model):
     ADRESSE_TYPE = (
