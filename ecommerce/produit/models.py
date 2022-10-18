@@ -3,7 +3,7 @@ from PIL import Image
 
 from django.core.files import File
 from django.db import models
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 
 # Create your models here.
@@ -11,7 +11,7 @@ from django.utils.translation import gettext as _
 
 class Categorie(models.Model):
     name = models.CharField(verbose_name=_("category name"), max_length=50)
-    slug = models.SlugField(_(""))
+    slug = models.SlugField(verbose_name=_("category name"))
 
     class Meta:
         verbose_name = _("Category")
@@ -28,8 +28,8 @@ class Categorie(models.Model):
 class Produit(models.Model):
     category = models.ForeignKey(
         "Categorie", verbose_name=_("Category"), related_name="products", on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
-    slug = models.SlugField(_(""))
+    name = models.CharField(verbose_name=_("category name"), max_length=50)
+    slug = models.SlugField(verbose_name=_("category name"))
     description = models.CharField(
         verbose_name=_("Description"), max_length=200, null=True, blank=True)
     price = models.DecimalField(max_digits=9, decimal_places=3)

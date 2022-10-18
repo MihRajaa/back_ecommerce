@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 from address.models import Address
 
@@ -78,6 +78,8 @@ class MyUser(AbstractBaseUser):
         return f'{self.is_admin}'
 
     class Meta:
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
         ordering = ["id"]
 
 
@@ -100,3 +102,7 @@ class UserAdress(models.Model):
 
     def __str__(self):
         return f'{self.user}'
+
+    class Meta:
+        verbose_name = _('User Address')
+        verbose_name_plural = _('User Address')

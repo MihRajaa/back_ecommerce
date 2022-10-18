@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+
 ]
 
 MIDDLEWARE = [
@@ -84,10 +85,12 @@ MIDDLEWARE = [
 # durée de session
 SESSION_EXPIRE_SECONDS = 900
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-LOGOUT_REDIRECT_URL = reverse_lazy('login_view')
+LOGOUT_REDIRECT_URL = reverse_lazy('en/admin/login/')
 
 ROOT_URLCONF = 'ecommerce.urls'
 
+
+#  templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -99,6 +102,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
         },
     },
@@ -177,10 +181,13 @@ USE_I18N = True
 
 USE_TZ = True
 
+TEMPLATE_CONTEXT_PROCESSORS = ['django.core.context_processors.i18n', ]
+
 LANGUAGES = [
     ('en', 'English'),
     ('fr', 'Français')
 ]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -199,10 +206,12 @@ LOCATION_FIELD = {
     'provider.google.map.type': 'ROADMAP',
 }
 
+LOGIN_URL = 'api-auth/login/'
+LOGOUT_REDIRECT_URL = 'api-auth/logout/'
 
 SWAGGER_SETTINGS = {
-    'LOGIN_URL': '/admin/login/',
-    'LOGOUT_URL': '/admin/logout/',
+    'LOGIN_URL': 'api-auth/login/',
+    'LOGOUT_URL': 'api-auth/logout/'
 }
 
 

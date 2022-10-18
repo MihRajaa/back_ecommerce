@@ -3,13 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: .\produit\models.py:14 .\produit\models.py:32
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-17 17:22+0100\n"
+"POT-Creation-Date: 2022-10-18 15:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,146 +17,192 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-#: .\address\models.py:12
+
+#: .\address\apps.py:8 .\members\models.py:97
+msgid "address"
+msgstr "adresse"
+
+#: .\address\models.py:12 .\address\models.py:45 .\address\models.py:21
 msgid "governorate"
-msgstr ""
+msgstr "gouvernorat"
 
 #: .\address\models.py:13
 msgid "code-ISO"
-msgstr ""
+msgstr "code-ISO"
 
-#: .\address\models.py:25
+#: .\address\models.py:15
+msgid "coordinates"
+msgstr "coordonnées"
+
+#: .\address\models.py:22
+msgid "governorates"
+msgstr "gouvernorats"
+
+#: .\address\models.py:28 .\address\models.py:34
 msgid "Postal code"
-msgstr ""
+msgstr "code postale"
 
 #: .\address\models.py:35
+msgid "Postal Codes"
+msgstr "codes postales"
+
+#: .\address\models.py:42 .\address\models.py:62
 msgid "city"
-msgstr ""
-
-#: .\address\models.py:38
-msgid "governorate"
-msgstr ""
-
-#: .\address\models.py:47
-msgid "locality"
-msgstr ""
+msgstr "ville"
 
 #: .\address\models.py:51
-msgid "city"
-msgstr ""
+msgid "City"
+msgstr "Ville"
 
-#: .\address\models.py:59
+#: .\address\models.py:52
+msgid "Cities"
+msgstr "Villes"
+
+#: .\address\models.py:58
+msgid "locality"
+msgstr "locale"
+
+#: .\address\models.py:68
+msgid "Locality"
+msgstr "locale"
+
+#: .\address\models.py:69
+msgid "Localities"
+msgstr "locales"
+
+#: .\address\models.py:74
 msgid "street"
-msgstr ""
+msgstr "rue"
 
-#: .\address\models.py:61
+#: .\address\models.py:76
 msgid "apartment"
-msgstr ""
+msgstr "appartement"
 
-#: .\address\models.py:62
+#: .\address\models.py:77
 msgid "floor"
-msgstr ""
+msgstr "étage"
 
-#: .\address\models.py:63
+#: .\address\models.py:78
 msgid "door"
-msgstr ""
+msgstr "porte"
 
-#: .\address\models.py:65
+#: .\address\models.py:80
 msgid "comment"
-msgstr ""
+msgstr "commentaire"
+
+#: .\address\models.py:86 .\address\models.py:87
+msgid "Address"
+msgstr "adresse"
+
+#: .\ecommerce\urls.py:47
+msgid "admin/"
+msgstr "admin/"
 
 #: .\members\models.py:50
 msgid "Username"
-msgstr ""
+msgstr "Nom d'utilisateur"
 
 #: .\members\models.py:52
 msgid "email address"
-msgstr ""
+msgstr "adresse email"
 
 #: .\members\models.py:53
 msgid "first name"
-msgstr ""
+msgstr "prénom"
 
 #: .\members\models.py:54
 msgid "last name"
-msgstr ""
+msgstr "nom"
 
 #: .\members\models.py:56
 msgid "date of birth"
-msgstr ""
+msgstr "date de naissance"
 
 #: .\members\models.py:57
 msgid "Phone Number"
-msgstr ""
+msgstr "numéro télephone"
 
 #: .\members\models.py:59
 msgid "Active"
-msgstr ""
+msgstr "active"
 
 #: .\members\models.py:60
 msgid "admin"
-msgstr ""
+msgstr "administrateur"
 
-#: .\members\models.py:86
-msgid "Facturation"
-msgstr ""
+#: .\members\models.py:81
+msgid "User"
+msgstr "Nom d'utilisateur"
 
-#: .\members\models.py:87
-msgid "Import"
-msgstr ""
+#: .\members\models.py:82
+msgid "Users"
+msgstr "Nom d'utilisateur"
 
 #: .\members\models.py:88
-msgid "Export"
-msgstr ""
+msgid "billing"
+msgstr "facturation"
 
 #: .\members\models.py:89
-msgid "Livraison"
-msgstr ""
+msgid "Import"
+msgstr "import"
 
 #: .\members\models.py:90
-msgid "Siege Social"
-msgstr ""
+msgid "Export"
+msgstr "export"
+
+#: .\members\models.py:91
+msgid "delivery"
+msgstr "livraison"
 
 #: .\members\models.py:92
-msgid "utilisateur"
-msgstr ""
+msgid "headquarters"
+msgstr "siège social"
 
-#: .\members\models.py:95
-msgid "address"
-msgstr ""
-
-#: .\members\models.py:97
-msgid "type address"
-msgstr ""
+#: .\members\models.py:94
+msgid "username"
+msgstr "Nom d'utilisateur"
 
 #: .\members\models.py:99
+msgid "address type"
+msgstr "type d'adresse"
+
+#: .\members\models.py:101
 msgid "active"
+msgstr "active"
+
+#: .\members\models.py:107 .\members\models.py:108
+msgid "User Address"
+msgstr "adresse"
+
+#: .\members\urls.py:9
+msgid "register/"
 msgstr ""
 
-#: .\produit\models.py:13
+#: .\produit\apps.py:8
+msgid "product"
+msgstr "produit"
+
+#: .\produit\models.py:13 .\produit\models.py:14 .\produit\models.py:31
+#: .\produit\models.py:32
 msgid "category name"
-msgstr ""
+msgstr "nom categorie"
 
-#: .\produit\models.py:17
+#: .\produit\models.py:17 .\produit\models.py:30
 msgid "Category"
-msgstr ""
+msgstr "categorie"
 
 #: .\produit\models.py:18
 msgid "Categories"
-msgstr ""
-
-#: .\produit\models.py:30
-msgid "Categorie"
-msgstr ""
+msgstr "categories"
 
 #: .\produit\models.py:34
 msgid "Description"
-msgstr ""
+msgstr "description"
 
 #: .\produit\models.py:43
-msgid "Produit"
-msgstr ""
+msgid "Product"
+msgstr "produit"
 
 #: .\produit\models.py:44
-msgid "Produits"
-msgstr ""
+msgid "Products"
+msgstr "produits"

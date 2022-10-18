@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.gis.db import models as geo
 
@@ -17,15 +17,22 @@ class Gouvernat(models.Model):
     def __str__(self):
         return f'{self.governorate}'
 
+    class Meta:
+        verbose_name = _('governorate')
+        verbose_name_plural = _('governorates')
+
+
 # table liste de code des postes
-
-
 class CodePoste(models.Model):
     postal_code = models.CharField(verbose_name=_(
         "Postal code"), max_length=4, unique=True)
 
     def __str__(self):
         return f'{self.postal_code}'
+
+    class Meta:
+        verbose_name = _('Postal code')
+        verbose_name_plural = _('Postal Codes')
 
 
 # table city
@@ -40,6 +47,10 @@ class Ville(models.Model):
     def __str__(self):
         return f'{self.city}'
 
+    class Meta:
+        verbose_name = _('City')
+        verbose_name_plural = _('Cities')
+
 
 # table localité
 class Localite(models.Model):
@@ -52,6 +63,10 @@ class Localite(models.Model):
 
     def __str__(self):
         return f'{self.locale}'
+
+    class Meta:
+        verbose_name = _('Locality')
+        verbose_name_plural = _('Localities')
 
 
 # table address
@@ -66,3 +81,7 @@ class Address(models.Model):
 
     def __str__(self):
         return f"{self.street}"
+
+    class Meta:
+        verbose_name = _('Address')
+        verbose_name_plural = _('Address')
