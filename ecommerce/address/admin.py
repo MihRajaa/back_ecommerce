@@ -10,39 +10,40 @@ from .models import *
 
 @admin.register(Gouvernat)
 class GouvernatAdmin(ImportExportModelAdmin):
-    list_display = ('gouvernat', 'code_iso',
-                    'index_code_postal', 'coordonnees')
+    list_display = ('governorate', 'code_iso',
+                    'index_code_postal', 'coordinates')
     resource_class = GouvernatResource
 
     class Meta:
-        fields = ['gouvernat', 'code_iso', 'index_code_postal', 'coordonnees']
+        fields = ['governorate', 'code_iso',
+                  'index_code_postal', 'coordinates']
 
 
 @admin.register(Ville)
 class VilleAdmin(ImportExportModelAdmin):
-    list_display = ['ville', 'code_poste']
+    list_display = ['city', 'postal_code']
     resource_class = VilleResource
 
     class Meta:
-        fields = ['ville', 'code_poste']
+        fields = ['city', 'postal_code']
 
 
 @admin.register(CodePoste)
 class CodePosteAdmin(ImportExportModelAdmin):
-    list_display = ['code_poste', ]
+    list_display = ['postal_code', ]
     resource_class = CodePosteResource
 
 
 @admin.register(Localite)
 class LocaliteAdmin(ImportExportModelAdmin):
-    list_display = ['locale', 'code_postal', 'ville']
+    list_display = ['locale', 'code_postal', 'city']
     resource_class = LocaliteResource
 
 
-@admin.register(Adresse)
-class AdresseAdmin(admin.ModelAdmin):
-    list_display = ["appartement",
-                    "etage",
-                    "porte",
-                    "commentaire",
-                    "rue"]
+@admin.register(Address)
+class AddressAdmin(admin.ModelAdmin):
+    list_display = ["apartment",
+                    "floor",
+                    "door",
+                    "comment",
+                    "street"]

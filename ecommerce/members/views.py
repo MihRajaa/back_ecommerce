@@ -99,10 +99,10 @@ class MyUserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAdminUser]
 
 
-#  UserAdresse view
-class UserAdresseViewSet(viewsets.ModelViewSet):
+#  UserAddress view
+class UserAddressViewSet(viewsets.ModelViewSet):
     queryset = UserAdress.objects.all()
-    serializer_class = UserAdresseSerialiser
+    serializer_class = UserAddressSerialiser
     permission_classes = [permissions.IsAdminUser]
 
     def get_client_ip(request):

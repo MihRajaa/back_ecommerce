@@ -11,7 +11,7 @@ from .models import *
 @receiver(pre_save, sender=Ville)
 def recherche_gouvernat(sender, instance, **kwargs):
     index = []
-    for c in instance.code_poste:
+    for c in instance.postal_code:
         index.append(int(str(c)[:2]))
 
     gouv = Gouvernat.objects.get(index_code_postal__contains=[index[0]])
@@ -20,15 +20,15 @@ def recherche_gouvernat(sender, instance, **kwargs):
         logging.warning("Validation")
     else:
         logging.warning(gouv)
-        instance.gouvernat = gouv
+        instance.governorate = gouv
 
 
 @receiver(pre_save, sender=Localite)
 def recherche_ville(sender, instance, **kwargs):
-    ville = Ville.objects.get(code_poste__contains=instance.code_postal)
+    city = Ville.objects.get(code_poste__contains=instance.code_postal)
 
-    if not ville:
+    if not city:
         logging.warning("n'existe pas")
     else:
-        logging.warning(ville)
-        instance.ville = ville
+        logging.warning(city)
+        instance.city = city

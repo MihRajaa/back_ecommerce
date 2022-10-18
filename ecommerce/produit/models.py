@@ -10,11 +10,11 @@ from django.utils.translation import gettext as _
 
 
 class Categorie(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(verbose_name=_("category name"), max_length=50)
     slug = models.SlugField(_(""))
 
     class Meta:
-        verbose_name = _("Categorie")
+        verbose_name = _("Category")
         verbose_name_plural = _("Categories")
         ordering = ("name",)
 
@@ -26,23 +26,23 @@ class Categorie(models.Model):
 
 
 class Produit(models.Model):
-    categorie = models.ForeignKey(
-        "Categorie", verbose_name=_("Categorie"), related_name="produits", on_delete=models.CASCADE)
+    category = models.ForeignKey(
+        "Categorie", verbose_name=_("Category"), related_name="products", on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     slug = models.SlugField(_(""))
     description = models.CharField(
-        _("Description"), max_length=200, null=True, blank=True)
-    prix = models.DecimalField(max_digits=9, decimal_places=3)
+        verbose_name=_("Description"), max_length=200, null=True, blank=True)
+    price = models.DecimalField(max_digits=9, decimal_places=3)
     image = models.ImageField(
         upload_to='uploads/', blank=True, null=True)
     thumbnail = models.ImageField(
         upload_to='uploads/',  blank=True, null=True)
-    date_ajouter = models.DateTimeField(auto_now_add=True)
+    date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = _("Produit")
-        verbose_name_plural = _("Produits")
-        ordering = ("-date_ajouter",)
+        verbose_name = _("Product")
+        verbose_name_plural = _("Products")
+        ordering = ("-date_added",)
 
     def __str__(self):
         return self.name

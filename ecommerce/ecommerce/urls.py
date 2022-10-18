@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include, re_path
+from django.conf.urls.i18n import i18n_patterns
 
 from rest_framework import routers
 from rest_framework import permissions
@@ -10,19 +11,19 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from adresse import views as adresse_views
+from address import views as address_views
 from members import views as member_views
 from produit import views as produit_views
 
 router = routers.DefaultRouter()
-router.register(r'gouvernat', adresse_views.GouvernatViewSet)
-router.register(r'ville', adresse_views.VilleViewSet)
-router.register(r'code postal', adresse_views.CodePosteViewSet)
-router.register(r'localite', adresse_views.LocaliteViewSet)
-router.register(r'adresse', adresse_views.AdresseViewSet)
+router.register(r'governorate', address_views.GouvernatViewSet)
+router.register(r'city', address_views.VilleViewSet)
+router.register(r'code postal', address_views.CodePosteViewSet)
+router.register(r'localite', address_views.LocaliteViewSet)
+router.register(r'address', address_views.AddressViewSet)
 
 router.register(r'myuser', member_views.MyUserViewSet)
-router.register(r'useradresse', member_views.UserAdresseViewSet)
+router.register(r'useraddress', member_views.UserAddressViewSet)
 
 router.register(r'produit', produit_views.ProduitViewSet)
 
@@ -40,7 +41,8 @@ schema_view = get_schema_view(
 )
 
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
+
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('', include('members.urls')),
@@ -57,4 +59,5 @@ urlpatterns = [
                                                cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc',
                                              cache_timeout=0), name='schema-redoc'),
-]
+
+)

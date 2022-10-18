@@ -8,19 +8,19 @@ from .serializers import *
 
 class GouvernatViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows gouvernat to be viewed or edited.
+    API endpoint that allows governorate to be viewed or edited.
     """
 
-    queryset = Gouvernat.objects.all().order_by('gouvernat')
+    queryset = Gouvernat.objects.all().order_by('governorate')
     serializer_class = GouvernatSerializer
 
 
 class VilleViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows ville to be viewed or edited.
+    API endpoint that allows city to be viewed or edited.
     """
 
-    queryset = Ville.objects.all().order_by('ville')
+    queryset = Ville.objects.all().order_by('city')
     serializer_class = VilleSerializer
 
 
@@ -29,9 +29,9 @@ class CodePosteViewSet(viewsets.ModelViewSet):
     serializer_class = CodePosteSerializer
 
 
-class AdresseViewSet(viewsets.ModelViewSet):
-    queryset = Adresse.objects.all()
-    serializer_class = AdresseSerializer
+class AddressViewSet(viewsets.ModelViewSet):
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializer
 
 
 class LocaliteViewSet(viewsets.ModelViewSet):

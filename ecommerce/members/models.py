@@ -4,7 +4,7 @@ from django.contrib.auth.models import (
 )
 from django.utils.translation import gettext as _
 
-from adresse.models import Adresse
+from address.models import Address
 
 
 class MyUserManager(BaseUserManager):
@@ -47,7 +47,7 @@ class MyUserManager(BaseUserManager):
 
 class MyUser(AbstractBaseUser):
     username = models.CharField(verbose_name=_(
-        'User name'), max_length=50, unique=True)
+        'Username'), max_length=50, unique=True)
     email = models.EmailField(
         verbose_name=_('email address'), max_length=150)
     firstname = models.CharField(verbose_name=_('first name'), max_length=50)
@@ -82,20 +82,20 @@ class MyUser(AbstractBaseUser):
 
 
 class UserAdress(models.Model):
-    ADRESSE_TYPE = (
-        ("facturation", _("Facturation")),
+    ADDRESS_TYPE = (
+        ("facturation", _("billing")),
         ("import", _("Import")),
         ("export", _("Export")),
-        ("livraison", _("Livraison")),
-        ("siege social", _("Siege Social"))
+        ("livraison", _("delivery")),
+        ("siege social", _("headquarters"))
     )
-    user = models.ForeignKey(MyUser, verbose_name=_("utilisateur"),
+    user = models.ForeignKey(MyUser, verbose_name=_("username"),
                              on_delete=models.CASCADE)
-    adresse = models.ForeignKey(Adresse, verbose_name=_(
-        'adresse'), on_delete=models.DO_NOTHING)
+    address = models.ForeignKey(Address, verbose_name=_(
+        'address'), on_delete=models.DO_NOTHING)
 
-    adresse_type = models.CharField(verbose_name=_('type adresse'),
-                                    max_length=50, choices=ADRESSE_TYPE)
+    address_type = models.CharField(verbose_name=_('address type'),
+                                    max_length=50, choices=ADDRESS_TYPE)
     active = models.BooleanField(verbose_name=_('active'), default=True)
 
     def __str__(self):

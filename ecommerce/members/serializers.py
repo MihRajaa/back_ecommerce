@@ -45,7 +45,7 @@ class MyUserSerialiser(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class UserAdresseSerialiser(serializers.ModelSerializer):
+class UserAddressSerialiser(serializers.ModelSerializer):
     class Meta:
         model = UserAdress
         fields = '__all__'

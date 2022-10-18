@@ -37,9 +37,9 @@ class LocaliteSerializer(serializers.HyperlinkedModelSerializer):
         fields = "__all__"
 
 
-# Serializations d'adresse
-class AdresseSerializer(serializers.HyperlinkedModelSerializer):
+# Serializations d'address
+class AddressSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
-        model = Adresse
+        model = Address
         fields = "__all__"

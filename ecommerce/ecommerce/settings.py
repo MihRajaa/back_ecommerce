@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'django.contrib.gis',
 
-    'adresse',
+    'address',
     'members',
     'produit',
 
@@ -79,6 +79,7 @@ MIDDLEWARE = [
 
     'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
+
 
 # durée de session
 SESSION_EXPIRE_SECONDS = 900
@@ -176,6 +177,10 @@ USE_I18N = True
 
 USE_TZ = True
 
+LANGUAGES = [
+    ('en', 'English'),
+    ('fr', 'Français')
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -236,3 +241,5 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)

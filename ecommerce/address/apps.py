@@ -1,9 +1,9 @@
 from django.apps import AppConfig
 
 
-class AdresseConfig(AppConfig):
+class AddressConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'adresse'
+    name = 'address'
 
     def ready(self):
         from . import signals
