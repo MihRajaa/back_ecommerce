@@ -93,8 +93,10 @@ class UserAdress(models.Model):
     )
     user = models.ForeignKey(MyUser, verbose_name=_("username"),
                              on_delete=models.CASCADE)
-    address = models.ForeignKey(Address, verbose_name=_(
-        'address'), on_delete=models.DO_NOTHING)
+    address = models.ForeignKey(Address,
+                                verbose_name=_('address'),
+                                on_delete=models.DO_NOTHING,
+                                )
 
     address_type = models.CharField(verbose_name=_('address type'),
                                     max_length=50, choices=ADDRESS_TYPE)

@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'social_django',
 
 ]
 
@@ -79,6 +80,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 
     'django_session_timeout.middleware.SessionTimeoutMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 
@@ -94,7 +96,7 @@ ROOT_URLCONF = 'ecommerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -102,6 +104,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'social_django.context_processors.backends',  # <-- Here
+                'social_django.context_processors.login_redirect',  # <-- Here
 
             ],
         },
@@ -131,6 +136,11 @@ REST_FRAMEWORK = {
 
 # guardian authentication config
 AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.google.GoogleOAuth2',
+
     'django.contrib.auth.backends.ModelBackend',  # this is default
     'guardian.backends.ObjectPermissionBackend',
 )
@@ -193,6 +203,8 @@ LANGUAGES = [
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT_URL = 'static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -206,8 +218,11 @@ LOCATION_FIELD = {
     'provider.google.map.type': 'ROADMAP',
 }
 
-LOGIN_URL = 'api-auth/login/'
-LOGOUT_REDIRECT_URL = 'api-auth/logout/'
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/home/'
+LOGOUT_URL = '/logout/'
+LOGOUT_REDIRECT_URL = '/login/'
+
 
 SWAGGER_SETTINGS = {
     'LOGIN_URL': 'api-auth/login/',
@@ -218,7 +233,7 @@ SWAGGER_SETTINGS = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 
-
+# jwt config
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
@@ -252,3 +267,48 @@ SIMPLE_JWT = {
 }
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
+
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'exampleapp.custom_social_auth_pipeline.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+# Facebook
+SOCIAL_AUTH_FACEBOOK_KEY = '1554966624958170'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '2e1a1a84ff3b969b86e16989c3f8da7f'  # App Secret
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id,name,email',
+}
+
+
+# twitter
+SOCIAL_AUTH_TWITTER_KEY = 'Zmxu7JQYCV3107Vb0vab1bKnt'
+SOCIAL_AUTH_TWITTER_SECRET = '8fAebcplqk8MVdviXTVNmOpC4uhoaEqz7Qu7wVofUUtYl5YFgY'
+
+SOCIAL_AUTH_TWITTER_SCOPE = ['email']
+
+
+# google
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '68276363587-frlb31jgv3jhf75j8olk3k64jvgiou68.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile'
+]
+
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/settings/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/settings/'
+SOCIAL_AUTH_RAISE_EXCEPTIONS = False
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'

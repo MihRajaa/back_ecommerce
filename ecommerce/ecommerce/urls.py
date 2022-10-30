@@ -24,7 +24,7 @@ router.register(r'localite', address_views.LocaliteViewSet)
 router.register(r'address', address_views.AddressViewSet)
 
 router.register(r'myuser', member_views.MyUserViewSet)
-router.register(r'useraddress', member_views.UserAddressViewSet)
+router.register(r'UserAdress', member_views.UserAdressViewSet)
 
 router.register(r'produit', produit_views.ProduitViewSet)
 
@@ -60,5 +60,11 @@ urlpatterns = i18n_patterns(
                                                cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc',
                                              cache_timeout=0), name='schema-redoc'),
+
+    path('oauth/', include('social_django.urls', namespace='social')),  # <-- here
+
+
+    path(r'settings/', member_views.settings, name='settings'),
+    path(r'settings/password/', member_views.password, name='password'),
 
 )
