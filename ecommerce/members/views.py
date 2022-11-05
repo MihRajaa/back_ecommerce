@@ -1,9 +1,9 @@
+import warnings
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
-import requests
 
 from .serializers import *
 from .models import *
@@ -33,34 +33,35 @@ def HomeView(request):
 @login_required
 def settings(request):
     user = request.user
+    LIST_PROVIDER = ['google-oauth2', 'twitter', 'facebook']
 
-    try:
-        google_login = user.social_auth.get(provider='google-oauth2')
+    for prov in LIST_PROVIDER:
+        try:
+            social_login = user.social_auth.get(provider=prov)
+            provider = prov
 
-    except UserSocialAuth.DoesNotExist:
-        google_login = None
-
-    try:
-        twitter_login = user.social_auth.get(provider='twitter')
-
-    except UserSocialAuth.DoesNotExist:
-        twitter_login = None
-
-    try:
-        facebook_login = user.social_auth.get(provider='facebook')
-
-    except UserSocialAuth.DoesNotExist:
-        facebook_login = None
+        except UserSocialAuth.DoesNotExist:
+            social_login = None
 
     can_disconnect = (user.social_auth.count() >
                       1 or user.has_usable_password())
 
     return render(request, 'registration/settings.html', {
-        'google_login': google_login,
-        'twitter_login': twitter_login,
-        'facebook_login': facebook_login,
+        'provider': provider,
+        'social_login': social_login,
         'can_disconnect': can_disconnect
     })
+
+
+@login_required
+def get_or_create_user(backend, user, response, *args, **kwargs):
+    if backend.name == 'google':
+        profile = user.userprofile
+        print(profile)
+
+        if profile is None:
+            profile = MyUser(user_id=user.id)
+            print(profile)
 
 
 @login_required
