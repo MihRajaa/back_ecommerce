@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'django.contrib.postgres',
     'django.contrib.gis',
 
@@ -55,15 +56,21 @@ INSTALLED_APPS = [
     'members',
     'produit',
 
-    'rest_framework',
     'corsheaders',
     'guardian',
-    'import_export',
     'django_extensions',
     'drf_yasg',
+
+    'rest_framework',
+    'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'dj_rest_auth',
+
+
     'social_django',
+    'oauth2_provider',
+    'import_export',
 
 ]
 
@@ -81,8 +88,21 @@ MIDDLEWARE = [
 
     'django_session_timeout.middleware.SessionTimeoutMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
+SITE_ID = 1
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+
+REST_USE_JWT = True
+
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+
+REST_AUTH_TOKEN_MODEL = None
 
 # durée de session
 SESSION_EXPIRE_SECONDS = 900
@@ -124,15 +144,30 @@ AUTH_USER_MODEL = 'members.MyUser'
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
+
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication'
+        'rest_framework.authentication.TokenAuthentication',
+
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ),
+
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-    )
+    ),
+
+    # api rate limit
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '10/day',
+        'user': '2/minute'
+    }
 }
 
 # guardian authentication config
@@ -278,7 +313,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_user',
     'social_core.pipeline.user.get_username',
     'social_core.pipeline.user.create_user',
-    'members.views.get_or_create_user',
+    # 'members.views.get_or_create_user',
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
@@ -310,7 +345,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 ]
 
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/settings/'
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/settings/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/login/'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'

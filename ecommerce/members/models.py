@@ -49,12 +49,15 @@ class MyUser(AbstractBaseUser):
     username = models.CharField(verbose_name=_(
         'Username'), max_length=50, unique=True)
     email = models.EmailField(
-        verbose_name=_('email address'), max_length=150)
-    firstname = models.CharField(verbose_name=_('first name'), max_length=50)
-    lastname = models.CharField(verbose_name=_('last name'), max_length=50)
+        verbose_name=_('email address'), max_length=150, unique=True)
+    firstname = models.CharField(verbose_name=_(
+        'first name'), max_length=50, null=True, blank=True)
+    lastname = models.CharField(verbose_name=_(
+        'last name'), max_length=50, null=True, blank=True)
     date_of_birth = models.DateField(
         verbose_name=_('date of birth'), null=True)
-    phone = models.CharField(verbose_name=_('Phone Number'), max_length=20)
+    phone = models.CharField(verbose_name=_(
+        'Phone Number'), max_length=20, null=True, blank=True)
 
     is_active = models.BooleanField(verbose_name=_('Active'), default=True)
     is_admin = models.BooleanField(verbose_name=_('admin'), default=False)

@@ -61,8 +61,11 @@ urlpatterns = i18n_patterns(
     re_path(r'^redoc/$', schema_view.with_ui('redoc',
                                              cache_timeout=0), name='schema-redoc'),
 
-    path('oauth/', include('social_django.urls', namespace='social')),  # <-- here
+    path('oauth/', include('social_django.urls',
+         namespace='social_log')),  # <-- here
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
 
     path(r'settings/', member_views.settings, name='settings'),
     path(r'settings/password/', member_views.password, name='password'),

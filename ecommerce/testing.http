@@ -1,0 +1,18 @@
+
+
+POST http://localhost:8000/en/dj-rest-auth/login/ HTTP/1.1
+Content-Type: application/json
+
+{"username": "test","password": "testtest"}
+
+
+###
+GET  http://localhost:8000/en/logout/ HTTP/1.1
+
+
+
+###
+
+GET http://localhost:8000/en/login/ HTTP/1.1
+Content-Type: application/json
+Authorization: token  ya29.a0AeTM1iffF0pAuBxYuGw_GF9cGbFzTxPXu2tPYhr_cxlhc7MFOOSCqVuh-RiY31WP7Mkvjf0vuhKTwqQivlagyzAzg4sSr2PnyyH5e_io9IEGvsYEHMbPgDmIGsmQ70cXSICwKDzL7d6Jp6PDFANtVEWAp6jkaCgYKAekSARESFQHWtWOm06w9sJ87EWS-pnoNTwtp4A0163

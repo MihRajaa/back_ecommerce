@@ -1,0 +1,16 @@
+env-3.10.6
+address/__pycache__
+address/migrations/__pycache__
+address/migrations
+
+members/__pycache__
+members/migrations/__pycache__
+members/migrations
+
+ecommerce/__pycache__
+
+produit/__pycache__
+produit/migrations/__pycache__
+produit/migrations
+
+/.vscode

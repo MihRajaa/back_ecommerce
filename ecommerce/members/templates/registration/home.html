@@ -3,6 +3,7 @@
 {% if user.is_authenticated %}
 <p>Hi {{ user.username }}!</p>
 <p>Hi {{ user.email }}!</p>
+<p>Hi {{ social_login.extra_data.access_token }}!</p>
 {% endif %}
 
 {% endblock %}

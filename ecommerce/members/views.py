@@ -1,9 +1,9 @@
-import warnings
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 
 from .serializers import *
 from .models import *
@@ -21,8 +21,17 @@ from rest_framework.response import Response
 from social_django.models import UserSocialAuth
 
 
+@csrf_exempt
 def login(request):
-    return render(request, "registration/login.html")
+    user = request.user
+    print(user.email)
+
+    req = MyUser.objects.filter(email=user.email).first()
+
+    if req:
+        return redirect("registration/home.html")
+    else:
+        return render(request, "registration/login.html")
 
 
 @login_required
@@ -33,35 +42,44 @@ def HomeView(request):
 @login_required
 def settings(request):
     user = request.user
-    LIST_PROVIDER = ['google-oauth2', 'twitter', 'facebook']
+    print(user.email)
 
-    for prov in LIST_PROVIDER:
-        try:
-            social_login = user.social_auth.get(provider=prov)
-            provider = prov
+    req = MyUser.objects.filter(email=user.email).first()
 
-        except UserSocialAuth.DoesNotExist:
-            social_login = None
+    if req:
+        return redirect("registration/home.html")
+    else:
+        LIST_PROVIDER = ['google-oauth2', 'twitter', 'facebook']
 
-    can_disconnect = (user.social_auth.count() >
-                      1 or user.has_usable_password())
+        for prov in LIST_PROVIDER:
+            try:
+                social_login = user.social_auth.get(provider=prov)
+                provider = prov
 
-    return render(request, 'registration/settings.html', {
-        'provider': provider,
-        'social_login': social_login,
-        'can_disconnect': can_disconnect
-    })
+            except UserSocialAuth.DoesNotExist:
+                social_login = None
+
+        can_disconnect = (user.social_auth.count() >
+                          1 or user.has_usable_password())
+
+        # print(social_login.extra_data.access_token)
+
+        return render(request, 'registration/settings.html', {
+            'provider': provider,
+            'social_login': social_login,
+            'can_disconnect': can_disconnect
+        })
 
 
-@login_required
-def get_or_create_user(backend, user, response, *args, **kwargs):
-    if backend.name == 'google':
-        profile = user.userprofile
-        print(profile)
+# @login_required
+# def get_or_create_user(backend, user, response, *args, **kwargs):
+#     if backend.name == 'google':
+#         profile = user.userprofile
+#         print(profile)
 
-        if profile is None:
-            profile = MyUser(user_id=user.id)
-            print(profile)
+#         if profile is None:
+#             profile = MyUser(user_id=user.id)
+#             print(profile)
 
 
 @login_required
@@ -194,6 +212,6 @@ class MemberRegister(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         return Response({
-            "user": MyUserSerialiser(user,    context=self.get_serializer_context()).data,
+            "user": MyUserSerialiser(user, context=self.get_serializer_context()).data,
             "message": "User Created Successfully.  Now perform Login to get your token",
         })
