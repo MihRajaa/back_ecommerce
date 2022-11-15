@@ -1,34 +1,16 @@
-from django.contrib import admin
-from django.urls import path, include, re_path
+from django.conf import settings
+from django.conf.urls import static
 from django.conf.urls.i18n import i18n_patterns
+from django.contrib import admin
+from django.urls import include, path, re_path
 from django.utils.translation import gettext_lazy as _
-
-from rest_framework import routers
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
+from rest_framework_simplejwt.views import (TokenObtainPairView,
+                                            TokenRefreshView)
 
-from address import views as address_views
-from members import views as member_views
-from produit import views as produit_views
-
-router = routers.DefaultRouter()
-router.register(r'governorate', address_views.GouvernatViewSet)
-router.register(r'city', address_views.VilleViewSet)
-router.register(r'code postal', address_views.CodePosteViewSet)
-router.register(r'localite', address_views.LocaliteViewSet)
-router.register(r'address', address_views.AddressViewSet)
-
-router.register(r'myuser', member_views.MyUserViewSet)
-router.register(r'UserAdress', member_views.UserAdressViewSet)
-
-router.register(r'produit', produit_views.ProduitViewSet)
-
-
+# swagger schema view
 schema_view = get_schema_view(
     openapi.Info(
         title="E-Commerce",
@@ -45,15 +27,20 @@ schema_view = get_schema_view(
 urlpatterns = i18n_patterns(
 
     path(_('admin/'), admin.site.urls),
-    path('', include(router.urls)),
-    path('', include('members.urls')),
-    path('api-auth/', include('rest_framework.urls')),
 
+    # api urls
+    path('address', include('address.urls')),
+    path('members/', include('members.urls')),
+    path('product/', include('produit.urls')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    # tokens urls
     path('api/token/', TokenObtainPairView.as_view(),
          name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(),
          name='token_refresh'),
 
+    # swagger urls
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
             schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger',
@@ -61,13 +48,16 @@ urlpatterns = i18n_patterns(
     re_path(r'^redoc/$', schema_view.with_ui('redoc',
                                              cache_timeout=0), name='schema-redoc'),
 
+    # authentication urls
     path('oauth/', include('social_django.urls',
          namespace='social_log')),  # <-- here
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
 
-    path(r'settings/', member_views.settings, name='settings'),
-    path(r'settings/password/', member_views.password, name='password'),
 
 )
+
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL,
+#                           document_root=settings.MEDIA_ROOT)

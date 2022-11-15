@@ -10,7 +10,21 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Categorie(models.Model):
-    name = models.CharField(verbose_name=_("category name"), max_length=50)
+
+    SERVICE_TYPE = (
+        ("Holidays", _("Vacances")),
+        ("Jobs", _("Emploi")),
+        ("Vehicles", _("Véhicules")),
+        ("Real Estate", _("Immobilier")),
+        ("Fashion", _("Mode")),
+        ("Home", _("Maison")),
+        ("Multimedia", _("Multimédia")),
+        ("Hobbies", _("Loisirs")),
+        ("Professional equipment", _("Matériel professionnel")),
+        ("Other Services", _("Autres Services"))
+    )
+    name = models.CharField(verbose_name=_(
+        "category name"), max_length=50, choices=SERVICE_TYPE)
     slug = models.SlugField(verbose_name=_("category name"))
 
     class Meta:

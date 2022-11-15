@@ -71,17 +71,6 @@ def settings(request):
         })
 
 
-# @login_required
-# def get_or_create_user(backend, user, response, *args, **kwargs):
-#     if backend.name == 'google':
-#         profile = user.userprofile
-#         print(profile)
-
-#         if profile is None:
-#             profile = MyUser(user_id=user.id)
-#             print(profile)
-
-
 @login_required
 def password(request):
     if request.user.has_usable_password():

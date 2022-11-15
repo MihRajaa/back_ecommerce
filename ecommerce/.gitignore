@@ -14,3 +14,5 @@ produit/migrations/__pycache__
 produit/migrations
 
 /.vscode
+
+/.history
