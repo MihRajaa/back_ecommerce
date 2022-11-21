@@ -17,6 +17,7 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets, permissions, generics
 from rest_framework import serializers, status
 from rest_framework.response import Response
+from rest_framework.decorators import authentication_classes
 
 from social_django.models import UserSocialAuth
 
@@ -193,6 +194,7 @@ class UserAdressViewSet(viewsets.ModelViewSet):
 
 
 # Register Member
+
 class MemberRegister(generics.GenericAPIView):
     serializer_class = RegisterSerializer
 

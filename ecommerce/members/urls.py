@@ -3,7 +3,8 @@ from django.contrib.auth import views as auth_views
 
 from rest_framework.routers import DefaultRouter
 
-from .views import HomeView, MemberRegister, MyUserViewSet, UserAdressViewSet, settings, password
+from .views import MemberRegister, MyUserViewSet, UserAdressViewSet, settings, password
+
 
 app_name = 'members'
 
@@ -23,7 +24,6 @@ urlpatterns = [
     path('settings/password/', password, name='password'),
 
     # Login and Logout
-    path('login/', auth_views.LoginView.as_view(redirect_authenticated_user=True), name='login'),
-    path(
-        'logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]

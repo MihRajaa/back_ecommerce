@@ -1,0 +1,44 @@
+.login-container {
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: white;
+}
+
+.card {
+  display: inline-grid;
+  justify-content: center;
+  padding: 20px;
+  background: whitesmoke;
+  width: 1000px;
+  border: 0;
+}
+
+.form-signin {
+  padding: 15px;
+  height: fit-content;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type='email'] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type='password'] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.placeicon {
+  font-family: fontawesome;
+}
+
+.custom-control-label::before {
+  background-color: #dee2e6;
+  border: #dee2e6;
+}

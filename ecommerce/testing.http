@@ -7,8 +7,7 @@ Content-Type: application/json
 
 
 ###
-GET  http://localhost:8000/en/logout/ HTTP/1.1
-
+GET  http://localhost:8000/en/dj-rest-auth/logout/ HTTP/1.1
 
 
 ###

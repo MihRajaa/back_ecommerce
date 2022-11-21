@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'dj_rest_auth',
 
-
     'social_django',
     'oauth2_provider',
     'import_export',
@@ -84,7 +83,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
 
     'django_session_timeout.middleware.SessionTimeoutMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
@@ -96,9 +94,16 @@ SITE_ID = 1
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
 
 
 REST_USE_JWT = True
+
+CSRF_COOKIE_SECURE = True
+
+ACCOUNT_LOGOUT_ON_GET = True
 
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
@@ -108,7 +113,6 @@ REST_AUTH_TOKEN_MODEL = None
 # durée de session
 SESSION_EXPIRE_SECONDS = 900
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-LOGOUT_REDIRECT_URL = reverse_lazy('en/admin/login/')
 
 ROOT_URLCONF = 'ecommerce.urls'
 
@@ -157,7 +161,7 @@ REST_FRAMEWORK = {
     ),
 
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
 
     # api rate limit
@@ -166,7 +170,7 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle'
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '10/day',
+        'anon': '1000/day',
         'user': '2/minute'
     }
 }
@@ -255,10 +259,10 @@ LOCATION_FIELD = {
     'provider.google.map.type': 'ROADMAP',
 }
 
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/home/'
-LOGOUT_URL = '/logout/'
-LOGOUT_REDIRECT_URL = '/login/'
+# LOGIN_URL = '/login/'
+# LOGIN_REDIRECT_URL = '/home/'
+# LOGOUT_URL = '/logout/'
+# LOGOUT_REDIRECT_URL = '/login/'
 
 
 SWAGGER_SETTINGS = {
@@ -346,7 +350,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 ]
 
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/settings/'
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/login/'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
