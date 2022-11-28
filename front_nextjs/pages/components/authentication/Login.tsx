@@ -1,12 +1,20 @@
 import axios from 'axios';
+import Image from 'next/image';
 import Router from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
+
+import authSlice from '../../../src/store/slices/auth';
+import { useAppDispatch } from '../../../src/utils/hooks';
 
 export default function Login() {
-  const handleSubmit = async (event: React.SyntheticEvent) => {
-    event.preventDefault();
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
 
-    const target = event.target as typeof event.target & {
+  function handleLogin(e: React.SyntheticEvent) {
+    e.preventDefault();
+
+    const target = e.target as typeof e.target & {
       username: { value: string };
       password: { value: string };
     };
@@ -19,18 +27,30 @@ export default function Login() {
     console.log(data);
 
     try {
-      const req = await axios.post(
-        'http://localhost:8000/en/dj-rest-auth/login/',
-        data
-      );
-      const res = req.data;
-      console.log(res);
+      axios
+        .post('http://localhost:8000/en/dj-rest-auth/login/', data)
+        .then((res) => {
+          dispatch(
+            authSlice.actions.setAuthTokens({
+              token: res.data.access_token,
+              refreshToken: res.data.refresh_token,
+            })
+          );
+          dispatch(authSlice.actions.setAccount(res.data.user));
+          setLoading(false);
 
-      Router.push('./Home');
+          console.log('data', res.data);
+          Router.push('./Profile');
+        })
+        .catch((err) => {
+          setMessage(err);
+        });
     } catch (error) {
       console.log(error);
     }
-  };
+  }
+
+  console.log('loading', loading, 'message', message);
 
   return (
     <div className='login-container'>
@@ -40,14 +60,15 @@ export default function Login() {
           <form
             className='form-signin w-100 m-auto'
             method='POST'
-            onSubmit={handleSubmit}>
-            <img
+            onSubmit={handleLogin}
+            autoComplete='off'>
+            {/* <Image
               className='mb-4'
               src='/docs/5.2/assets/brand/bootstrap-logo.svg'
               alt=''
               width='72'
               height='57'
-            />
+            /> */}
             <h1 className='h3 mb-3 fw-normal'>Please sign in</h1>
 
             <div className='form-floating'>
@@ -57,6 +78,7 @@ export default function Login() {
                 id='username'
                 name='username'
                 placeholder='Username'
+                defaultValue=''
               />
               <label form='floatingInput'>Username</label>
             </div>

@@ -6,8 +6,8 @@ function Home() {
   return (
     <div className='container'>
       <div
-        className='container-fluid d-flex bg-light'
-        style={{ height: 'fit-content' }}>
+        className='container-fluid '
+        style={{ height: 'fit-content', padding: '5px', margin: '10px' }}>
         <Filter />
       </div>
       <div>

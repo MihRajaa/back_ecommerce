@@ -1,7 +1,6 @@
-import Home from './components/Home'
+import React from 'react';
+import Home from './components/Home';
 
-const IndexPage = () => (
-      <Home />
-)
-
-export default IndexPage
+export default function index() {
+  return <Home />;
+}

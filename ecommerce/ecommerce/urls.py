@@ -26,19 +26,20 @@ schema_view = get_schema_view(
 
 urlpatterns = i18n_patterns(
 
-    path(_('admin/'), admin.site.urls),
+    re_path(_('admin/'), admin.site.urls),
 
     # api urls
-    path('address', include('address.urls')),
-    path('members/', include('members.urls')),
-    path('product/', include('produit.urls')),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    re_path('address', include('address.urls')),
+    re_path('members/', include('members.urls')),
+    re_path('product/', include('produit.urls')),
+    re_path('api-auth/', include('rest_framework.urls',
+            namespace='rest_framework')),
 
     # tokens urls
-    path('api/token/', TokenObtainPairView.as_view(),
-         name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(),
-         name='token_refresh'),
+    re_path('api/token/', TokenObtainPairView.as_view(),
+            name='token_obtain_pair'),
+    re_path('api/token/refresh/', TokenRefreshView.as_view(),
+            name='token_refresh'),
 
     # swagger urls
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
@@ -49,11 +50,13 @@ urlpatterns = i18n_patterns(
                                              cache_timeout=0), name='schema-redoc'),
 
     # authentication urls
-    path('oauth/', include('social_django.urls',
-         namespace='social_log')),  # <-- here
-    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    re_path('oauth/', include('social_django.urls',
+                              namespace='social_log')),  # <-- here
+    re_path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 
-    path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    re_path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    re_path('dj-rest-auth/registration/',
+            include('dj_rest_auth.registration.urls')),
 
 
 )

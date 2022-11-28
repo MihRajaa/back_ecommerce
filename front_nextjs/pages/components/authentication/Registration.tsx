@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Image from 'next/image';
 import Router from 'next/router';
 import React from 'react';
 
@@ -24,7 +25,7 @@ export default function Registration() {
 
     try {
       const req = await axios.post(
-        'http://localhost:8000/en/members/register/',
+        'http://localhost:8000/en/dj-rest-auth/register/',
         data
       );
       const res = req.data;
@@ -45,7 +46,13 @@ export default function Registration() {
             className='form-signin w-100 m-auto'
             method='POST'
             onSubmit={handleSubmit}>
-            <img className='mb-4' src='' alt='' width='72' height='57' />
+            {/* <Image
+              className='mb-4'
+              src='/src/image/10861192.jpg'
+              alt=''
+              width='72'
+              height='57'
+            /> */}
             <h1 className='h3 mb-3 fw-normal'>Sign Up</h1>
 
             <div className='form-floating'>

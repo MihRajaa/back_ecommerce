@@ -2,43 +2,53 @@ import React from 'react';
 
 function Filter() {
   return (
-    <div className='px-4 py-5 my-5 text-center'>
-      <form>
-        <div className='form-group'>
-          <label form='exampleInputEmail1'>Email address</label>
-          <input
-            type='email'
-            className='form-control'
-            id='exampleInputEmail1'
-            aria-describedby='emailHelp'
-            placeholder='Enter email'
-          />
-          <small id='emailHelp' className='form-text text-muted'>
-            We'll never share your email with anyone else.
-          </small>
+    <div
+      className='container bg-white'
+      style={{ padding: '5px', maxWidth: '800px' }}>
+      <form className='row justify-content-md-center'>
+        <div className='col col-lg-2 text-center'>
+          <div className=''>
+            <select
+              className='form-select w-auto'
+              id='exampleFormControlSelect2'>
+              <option>Catégories</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
         </div>
-        <div className='form-group'>
-          <label form='exampleInputPassword1'>Password</label>
+
+        <div className='col col-lg-5 text-center'>
           <input
-            type='password'
-            className='form-control'
-            id='exampleInputPassword1'
-            placeholder='Password'
+            type='text'
+            name=''
+            id=''
+            className='form-control '
+            placeholder='Rechercher'
+            aria-describedby='helpId'
           />
         </div>
-        <div className='form-check'>
-          <input
-            type='checkbox'
-            className='form-check-input'
-            id='exampleCheck1'
-          />
-          <label className='form-check-label' form='exampleCheck1'>
-            Check me out
-          </label>
+
+        <div className='col col-lg-2 text-center'>
+          <select className='form-select w-auto' id='exampleFormControlSelect2'>
+            <option>Gouvernorat</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
         </div>
-        <button type='submit' className='btn btn-primary'>
-          Submit
-        </button>
+
+        <div className='col col-lg-2 text-center'>
+          <button type='submit' className='btn btn-outline-primary'>
+            Rechercher
+            <i className='fa fa-search'></i>
+          </button>
+        </div>
       </form>
     </div>
   );
